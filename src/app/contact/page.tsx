@@ -2,6 +2,7 @@ import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { ContactForm } from "@/components/ContactForm";
 import { site } from "@/content/site";
+import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -40,12 +41,12 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-foreground">WhatsApp</p>
                       <a
-                        href={`https://wa.me/${site.whatsapp}`}
+                        href={whatsappUrl(whatsappMessages.general)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-muted hover:text-accent-soft"
                       >
-                        Chat on WhatsApp
+                        +91 93323 75667 — Chat on WhatsApp
                       </a>
                     </div>
                   </li>

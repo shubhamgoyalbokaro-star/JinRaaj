@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { site, navLinks } from "@/content/site";
 import { brands } from "@/content/products";
+import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 
 export function Footer() {
   return (
@@ -70,12 +71,12 @@ export function Footer() {
               <li className="flex items-start gap-2 text-sm text-muted">
                 <MessageCircle size={16} className="mt-0.5 shrink-0 text-accent" />
                 <a
-                  href={`https://wa.me/${site.whatsapp}`}
+                  href={whatsappUrl(whatsappMessages.general)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
-                  WhatsApp Us
+                  +91 93323 75667
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted">

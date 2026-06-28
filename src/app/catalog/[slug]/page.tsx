@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Check, MessageCircle } from "lucide-react";
 import { getProductBySlug, products } from "@/content/products";
-import { site } from "@/content/site";
 import { CtaSection } from "@/components/CtaSection";
+import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 import type { Metadata } from "next";
 
 type ProductPageProps = {
@@ -30,8 +30,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  const whatsappMsg = encodeURIComponent(
-    `Hi JinRaaj, I'm interested in wholesale pricing for ${product.name} (${product.skuPrefix}). Please share price list and MOQ.`
+  const productWhatsappUrl = whatsappUrl(
+    whatsappMessages.product(product.name, product.skuPrefix)
   );
 
   return (
@@ -116,7 +116,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   Request Wholesale Quote
                 </Link>
                 <a
-                  href={`https://wa.me/${site.whatsapp}?text=${whatsappMsg}`}
+                  href={productWhatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary px-6 py-3 text-sm"

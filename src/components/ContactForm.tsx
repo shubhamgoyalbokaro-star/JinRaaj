@@ -1,26 +1,25 @@
 "use client";
 
-import { useState } from "react";
 import { Send } from "lucide-react";
-import { site } from "@/content/site";
+import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
-  }
+    const form = e.currentTarget;
+    const data = new FormData(form);
 
-  if (submitted) {
-    return (
-      <div className="card-surface p-8 text-center">
-        <p className="text-lg font-semibold text-foreground">Thank you for your enquiry!</p>
-        <p className="mt-2 text-sm text-muted">
-          We&apos;ll respond within {site.responseTime}. For faster response, WhatsApp us directly.
-        </p>
-      </div>
-    );
+    const message = whatsappMessages.enquiry({
+      name: String(data.get("name") ?? ""),
+      business: String(data.get("business") ?? ""),
+      phone: String(data.get("phone") ?? ""),
+      email: String(data.get("email") ?? "") || undefined,
+      city: String(data.get("city") ?? ""),
+      interest: String(data.get("interest") ?? "") || undefined,
+      message: String(data.get("message") ?? "") || undefined,
+    });
+
+    window.location.href = whatsappUrl(message);
   }
 
   return (
@@ -103,10 +102,10 @@ export function ContactForm() {
           className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground focus:border-accent focus:outline-none"
         >
           <option value="">Select a category</option>
-          <option value="modular">Modular / Flip-Up (O2 PROX)</option>
-          <option value="open-face">Open Face (NANO, TRACK PC, WOKE)</option>
-          <option value="full-face">Full Face (6 JALI, BLINK)</option>
-          <option value="all">Full Catalog / Mixed Order</option>
+          <option value="Modular / Flip-Up (O2 PROX)">Modular / Flip-Up (O2 PROX)</option>
+          <option value="Open Face (NANO, TRACK PC, WOKE)">Open Face (NANO, TRACK PC, WOKE)</option>
+          <option value="Full Face (6 JALI, BLINK)">Full Face (6 JALI, BLINK)</option>
+          <option value="Full Catalog / Mixed Order">Full Catalog / Mixed Order</option>
         </select>
       </div>
 
@@ -124,12 +123,12 @@ export function ContactForm() {
       </div>
 
       <button type="submit" className="btn-primary w-full py-3 text-sm sm:w-auto sm:px-8">
-        Send Enquiry
+        Send Enquiry via WhatsApp
         <Send size={16} />
       </button>
 
       <p className="text-xs text-muted">
-        This form is a placeholder — submissions are not yet connected to email. Use WhatsApp for immediate response.
+        Submitting opens WhatsApp with your enquiry pre-filled to +91 93323 75667.
       </p>
     </form>
   );
