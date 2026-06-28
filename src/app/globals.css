@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0c0f14;
+  --foreground: #f1f5f9;
+  --muted: #94a3b8;
+  --card: #151921;
+  --card-hover: #1c2230;
+  --surface: #111620;
+  --border: #2a3344;
+  --accent: #f59e0b;
+  --accent-dim: #d97706;
+  --accent-foreground: #0c0f14;
+  --accent-soft: #fbbf24;
+  --accent-soft-light: #fcd34d;
+  --accent-navy: #0c0f14;
+  --accent-glow: rgba(245, 158, 11, 0.15);
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 12px 40px rgba(245, 158, 11, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-light: var(--accent-soft-light);
+  --color-accent-navy: var(--accent-navy);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.35);
+  color: var(--foreground);
+}
+
+.glass-nav {
+  background: rgba(12, 15, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-dim);
+  box-shadow: var(--shadow-elevated);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--card);
+  border-color: var(--accent);
+}
+
+.card-surface {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.card-surface:hover {
+  background: var(--card-hover);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: var(--shadow-card);
+}
+
+.section-padding {
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(245, 158, 11, 0.12), transparent),
+    radial-gradient(ellipse 50% 40% at 90% 50%, rgba(245, 158, 11, 0.06), transparent),
+    var(--background);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.badge-accent {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--accent-soft);
+}

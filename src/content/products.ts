@@ -1,0 +1,342 @@
+export type HelmetType = "modular" | "full-face" | "open-face" | "off-road";
+export type HelmetFinish = "matte" | "glossy" | "graphics" | "painted";
+
+export type ProductColor = {
+  id: string;
+  label: string;
+  hex: string;
+};
+
+export type Product = {
+  slug: string;
+  name: string;
+  brand: string;
+  type: HelmetType;
+  finish: HelmetFinish[];
+  tagline: string;
+  description: string;
+  image: string;
+  featured?: boolean;
+  badges: string[];
+  colors?: ProductColor[];
+  finishes?: { id: string; label: string }[];
+  specs: { label: string; value: string }[];
+  features: string[];
+  moq: string;
+  skuPrefix: string;
+};
+
+export const brands = ["O2", "ASHO", "Kaiser", "3 ACES"] as const;
+
+export const helmetTypes: { id: HelmetType; label: string }[] = [
+  { id: "modular", label: "Modular / Flip-Up" },
+  { id: "full-face", label: "Full Face" },
+  { id: "open-face", label: "Open Face / Jet" },
+  { id: "off-road", label: "Off-Road" },
+];
+
+export const products: Product[] = [
+  {
+    slug: "o2-prox-matt-sv",
+    name: "O2 PROX MATT S/V",
+    brand: "O2",
+    type: "modular",
+    finish: ["matte"],
+    tagline: "Matte modular helmet with integrated sun visor",
+    description:
+      "Premium flip-up helmet in a refined matte black finish. Built for dealers who need a reliable modular option with clear outer visor and drop-down sun shield — ideal for daily commuters and tourers.",
+    image: "/products/o2-prox-matt-sv.png",
+    featured: true,
+    badges: ["Modular", "Sun Visor", "Matte Finish"],
+    specs: [
+      { label: "Shell", value: "ABS composite — advance safety shell" },
+      { label: "Visor", value: "Clear outer + internal sun visor (S/V)" },
+      { label: "Mechanism", value: "Flip-up chin bar with side pivot" },
+      { label: "Certification", value: "ISI certified (placeholder)" },
+      { label: "Weight", value: "Approx. 1,450 g (placeholder)" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Flip-up modular design for versatility",
+      "Matte black non-reflective finish",
+      "Integrated sun visor for day riding",
+      "Scratch-resistant clear outer visor",
+      "Comfort padding with removable liners",
+    ],
+    moq: "24 units per size (placeholder)",
+    skuPrefix: "O2-PROX-MATT-SV",
+  },
+  {
+    slug: "o2-prox-matt-dv",
+    name: "O2 PROX MATT D/V",
+    brand: "O2",
+    type: "modular",
+    finish: ["matte"],
+    tagline: "Dual visor modular helmet in matte black",
+    description:
+      "The dual-visor PROX in matte finish — clear outer shield plus internal tinted sun visor. ARIHANT-engineered interior with smooth flip-up operation for wholesale buyers stocking premium modular lines.",
+    image: "/products/o2-prox-matt-dv.png",
+    featured: true,
+    badges: ["Dual Visor", "Modular", "Matte Finish"],
+    specs: [
+      { label: "Shell", value: "ABS composite — advance safety shell" },
+      { label: "Visor", value: "Clear outer + drop-down sun visor (D/V)" },
+      { label: "Interior", value: "ARIHANT branded padding system" },
+      { label: "Mechanism", value: "One-touch flip-up release" },
+      { label: "Certification", value: "ISI certified (placeholder)" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Dual visor system for all-light conditions",
+      "Matte black shell with premium feel",
+      "Modular flip-up chin bar",
+      "Contoured sun visor with nose cut-out",
+      "Dealer-friendly multi-size packaging",
+    ],
+    moq: "24 units per size (placeholder)",
+    skuPrefix: "O2-PROX-MATT-DV",
+  },
+  {
+    slug: "o2-woke-matt-spoiler",
+    name: "O2 WOKE MATT WITH SPOILER",
+    brand: "O2",
+    type: "open-face",
+    finish: ["matte"],
+    tagline: "Open-face jet helmet with rear aerodynamic spoiler",
+    description:
+      "Sporty open-face helmet with matte finish, large clear visor, and integrated rear spoiler. Top ventilation channels and classic jet styling make this a strong seller for urban and leisure riders.",
+    image: "/products/o2-woke-matt-spoiler.png",
+    badges: ["Open Face", "Rear Spoiler", "Matte Finish"],
+    specs: [
+      { label: "Shell", value: "Lightweight ABS shell" },
+      { label: "Visor", value: "Large clear wrap-around visor" },
+      { label: "Spoiler", value: "Integrated rear aerodynamic wing" },
+      { label: "Ventilation", value: "Top intake vents" },
+      { label: "Certification", value: "ISI certified (placeholder)" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Distinctive rear spoiler for sporty look",
+      "Matte black textured finish",
+      "Wide field-of-view clear visor",
+      "Top vent channels for airflow",
+      "Quick-release visor mechanism",
+    ],
+    moq: "36 units per size (placeholder)",
+    skuPrefix: "O2-WOKE-MATT-SPL",
+  },
+  {
+    slug: "o2-prox-glossy-painted-dv",
+    name: "O2 PROX FLIP UP GLOSSY/PAINTED D/V",
+    brand: "O2",
+    type: "modular",
+    finish: ["glossy", "painted"],
+    tagline: "Glossy metallic flip-up with dual visor system",
+    description:
+      "Eye-catching glossy painted modular helmet with metallic sparkle finish. Dual visor setup, O2 branding, and multi-point ventilation — a premium stocking option for showrooms that want visual impact.",
+    image: "/products/o2-prox-glossy-painted-dv.png",
+    featured: true,
+    badges: ["Dual Visor", "Glossy", "Modular"],
+    finishes: [
+      { id: "glossy", label: "Glossy" },
+      { id: "painted", label: "Painted" },
+    ],
+    specs: [
+      { label: "Shell", value: "Painted ABS with metallic flake" },
+      { label: "Visor", value: "Clear outer + internal sun visor (D/V)" },
+      { label: "Ventilation", value: "Dual top vents + chin intake" },
+      { label: "Branding", value: "O2 logo on forehead" },
+      { label: "Certification", value: "ISI certified (placeholder)" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "High-gloss metallic sparkle paint finish",
+      "Dual visor for sun and night riding",
+      "Modular flip-up functionality",
+      "Multi-point ventilation system",
+      "Premium showroom presentation",
+    ],
+    moq: "24 units per size (placeholder)",
+    skuPrefix: "O2-PROX-GLS-DV",
+  },
+  {
+    slug: "o2-prox-graphics-dv",
+    name: "O2 PROX FLIP UP GRAPHICS D/V",
+    brand: "O2",
+    type: "modular",
+    finish: ["graphics"],
+    tagline: "Graphic modular helmet with dual visor",
+    description:
+      "Bold electric-blue graphics on a matte black modular shell. HI PERFORMANCE advance safety composite construction with dual visor — built for dealers targeting style-conscious riders.",
+    image: "/products/o2-prox-graphics-dv.png",
+    badges: ["Dual Visor", "Graphics", "Modular"],
+    specs: [
+      { label: "Shell", value: "Advance safety composite shell" },
+      { label: "Graphics", value: "Electric blue speed streaks on matte base" },
+      { label: "Visor", value: "Clear outer + internal sun visor (D/V)" },
+      { label: "Ventilation", value: "Top mesh vent + chin intake" },
+      { label: "Branding", value: "HI PERFORMANCE shell marking" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Dynamic blue graphic design",
+      "Dual visor system",
+      "Modular flip-up chin bar",
+      "Mesh-top ventilation",
+      "Scratch-resistant outer visor",
+    ],
+    moq: "24 units per size (placeholder)",
+    skuPrefix: "O2-PROX-GR-DV",
+  },
+  {
+    slug: "asho-nano",
+    name: "NANO",
+    brand: "ASHO",
+    type: "open-face",
+    finish: ["glossy"],
+    tagline: "Compact open-face helmet in five vibrant colours",
+    description:
+      "The ASHO NANO is a lightweight 3/4 open-face helmet with clear visor — available in five popular colours for dealers who need fast-moving SKU variety at accessible price points.",
+    image: "/products/asho-nano-red.png",
+    badges: ["Open Face", "5 Colours", "ASHO"],
+    colors: [
+      { id: "bk", label: "Black (BK)", hex: "#1a1a1a" },
+      { id: "red", label: "Red", hex: "#c41e3a" },
+      { id: "blue", label: "Blue", hex: "#1e4d8c" },
+      { id: "pink", label: "Pink", hex: "#e879a9" },
+      { id: "w-red", label: "Wine Red (W.Red)", hex: "#722f37" },
+    ],
+    specs: [
+      { label: "Shell", value: "Lightweight ABS shell" },
+      { label: "Visor", value: "Clear flip-up visor" },
+      { label: "Colours", value: "BK · Red · Blue · Pink · W.Red" },
+      { label: "Ventilation", value: "Rear side mesh vent" },
+      { label: "Certification", value: "ISI certified (placeholder)" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Five colour options for broad appeal",
+      "Glossy metallic finish options",
+      "Compact open-face profile",
+      "Clear visor with side pivot",
+      "Ideal for city and scooter market",
+    ],
+    moq: "48 units mixed colours (placeholder)",
+    skuPrefix: "ASHO-NANO",
+  },
+  {
+    slug: "asho-6-jali-isi",
+    name: "6 JALI ISI",
+    brand: "ASHO",
+    type: "full-face",
+    finish: ["glossy", "matte"],
+    tagline: "ISI-certified full-face with six mesh vents",
+    description:
+      "ASHO 6 JALI ISI full-face helmet with six mesh ventilation panels for superior airflow. Available in glossy and matte finishes — a dependable wholesale staple with ISI certification.",
+    image: "/products/asho-6-jali-isi-glossy.png",
+    badges: ["ISI Certified", "6 Mesh Vents", "Full Face"],
+    finishes: [
+      { id: "glossy", label: "Glossy" },
+      { id: "matte", label: "Matt" },
+    ],
+    specs: [
+      { label: "Shell", value: "Full-face ABS shell with graphics option" },
+      { label: "Ventilation", value: "6 mesh (jali) vent panels" },
+      { label: "Visor", value: "Clear scratch-resistant visor" },
+      { label: "Certification", value: "ISI certified" },
+      { label: "Finishes", value: "Glossy · Matt" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Six mesh vents for maximum airflow",
+      "ISI certified for road legal compliance",
+      "Glossy and matte finish options",
+      "Sporty graphic designs available",
+      "Secure visor lock mechanism",
+    ],
+    moq: "36 units per size (placeholder)",
+    skuPrefix: "ASHO-6JALI",
+  },
+  {
+    slug: "kaiser-track-pc",
+    name: "TRACK PC",
+    brand: "Kaiser",
+    type: "open-face",
+    finish: ["glossy", "matte"],
+    tagline: "Open-face helmet in glossy or matt — five colours",
+    description:
+      "Kaiser TRACK PC open-face helmet with flip-up clear visor. Available in glossy and matte finishes across five colours — Make in India quality for dealers building value-focused inventory.",
+    image: "/products/kaiser-track-pc-red-glossy.png",
+    badges: ["Make in India", "5 Colours", "Open Face"],
+    finishes: [
+      { id: "glossy", label: "Glossy" },
+      { id: "matte", label: "Matt" },
+    ],
+    colors: [
+      { id: "bk", label: "Black (BK)", hex: "#1a1a1a" },
+      { id: "red", label: "Red", hex: "#c41e3a" },
+      { id: "blue", label: "Blue", hex: "#1e4d8c" },
+      { id: "pink", label: "Pink", hex: "#e879a9" },
+      { id: "w-red", label: "Wine Red (W.Red)", hex: "#722f37" },
+    ],
+    specs: [
+      { label: "Shell", value: "ABS open-face shell" },
+      { label: "Visor", value: "Clear flip-up visor" },
+      { label: "Finishes", value: "Glossy · Matt" },
+      { label: "Colours", value: "BK · Red · Blue · Pink · W.Red" },
+      { label: "Origin", value: "Make in India" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Glossy and matte finish options",
+      "Five colour choices per finish",
+      "Flip-up clear visor",
+      "Kaiser Helmets quality branding",
+      "Strong value proposition for retailers",
+    ],
+    moq: "48 units mixed colours (placeholder)",
+    skuPrefix: "KAISER-TRACK-PC",
+  },
+  {
+    slug: "3-aces-blink-edge-etching",
+    name: "BLINK EDGE ETCHING",
+    brand: "3 ACES",
+    type: "full-face",
+    finish: ["matte"],
+    tagline: "Matte full-face with carbon-fiber edge etching detail",
+    description:
+      "3 ACES BLINK with distinctive edge etching — a carbon-fiber weave patch on the shell crown. ISI IS:4151 certified, matte finish with subtle iridescent shimmer, and bold BLINK wing branding.",
+    image: "/products/3-aces-blink-edge-etching.png",
+    featured: true,
+    badges: ["ISI IS:4151", "Edge Etching", "BLINK"],
+    specs: [
+      { label: "Shell", value: "Matte ABS with edge etching detail" },
+      { label: "Detail", value: "Carbon-fiber weave crown patch" },
+      { label: "Visor", value: "Clear scratch-resistant visor" },
+      { label: "Certification", value: "ISI IS:4151:2015 · CM/L 2643052" },
+      { label: "Branding", value: "BLINK wing logo" },
+      { label: "Sizes", value: "M · L · XL (placeholder)" },
+    ],
+    features: [
+      "Unique carbon-fiber edge etching design",
+      "ISI IS:4151 certified packaging",
+      "Matte finish with premium shimmer",
+      "BLINK signature wing branding",
+      "Lightning-bolt visor mechanism detail",
+    ],
+    moq: "24 units per size (placeholder)",
+    skuPrefix: "3ACES-BLINK-EE",
+  },
+];
+
+export function getProductBySlug(slug: string): Product | undefined {
+  return products.find((p) => p.slug === slug);
+}
+
+export function getFeaturedProducts(): Product[] {
+  return products.filter((p) => p.featured);
+}
+
+export function getProductsByBrand(brand: string): Product[] {
+  return products.filter((p) => p.brand.toLowerCase() === brand.toLowerCase());
+}
