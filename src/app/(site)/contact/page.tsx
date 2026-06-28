@@ -1,9 +1,11 @@
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { ContactForm } from "@/components/ContactForm";
-import { site } from "@/content/site";
+import { getSiteSettings } from "@/lib/data";
 import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -11,7 +13,9 @@ export const metadata: Metadata = {
     "Contact JinRaaj for wholesale helmet pricing, dealer enquiries, and bulk orders. Phone, email, WhatsApp, and enquiry form.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const site = await getSiteSettings();
+
   return (
     <>
       <PageHero
@@ -41,12 +45,12 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-foreground">WhatsApp</p>
                       <a
-                        href={whatsappUrl(whatsappMessages.general)}
+                        href={whatsappUrl(whatsappMessages.general, site.whatsapp)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-muted hover:text-accent-soft"
                       >
-                        +91 93323 75667 — Chat on WhatsApp
+                        {site.phone} — Chat on WhatsApp
                       </a>
                     </div>
                   </li>
@@ -81,7 +85,7 @@ export default function ContactPage() {
 
             <div className="lg:col-span-3">
               <h2 className="mb-6 text-lg font-bold text-foreground">Dealer Enquiry Form</h2>
-              <ContactForm />
+              <ContactForm whatsapp={site.whatsapp} phoneDisplay={site.phone} />
             </div>
           </div>
         </div>

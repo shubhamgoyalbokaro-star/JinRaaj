@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
-import { site, navLinks } from "@/content/site";
-import { brands } from "@/content/products";
+import type { SiteSettings } from "@/types/content";
+import { navLinks } from "@/content/site";
+import { getBrands } from "@/lib/data";
 import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 
-export function Footer() {
+type FooterProps = {
+  site: SiteSettings;
+};
+
+export async function Footer({ site }: FooterProps) {
+  const brands = await getBrands();
+
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -71,12 +78,12 @@ export function Footer() {
               <li className="flex items-start gap-2 text-sm text-muted">
                 <MessageCircle size={16} className="mt-0.5 shrink-0 text-accent" />
                 <a
-                  href={whatsappUrl(whatsappMessages.general)}
+                  href={whatsappUrl(whatsappMessages.general, site.whatsapp)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
-                  +91 93323 75667
+                  {site.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted">

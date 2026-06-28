@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { brands } from "@/content/products";
+import { getBrands } from "@/lib/data";
 
-export function BrandShowcase() {
+export async function BrandShowcase() {
+  const brands = await getBrands();
+
   return (
     <section className="section-padding">
       <div className="mx-auto max-w-7xl">

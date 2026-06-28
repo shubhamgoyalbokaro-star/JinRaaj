@@ -1,5 +1,3 @@
-import { site } from "@/content/site";
-
 type PageHeroProps = {
   title: string;
   subtitle?: string;

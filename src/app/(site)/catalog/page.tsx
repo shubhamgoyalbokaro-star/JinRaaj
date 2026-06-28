@@ -1,8 +1,10 @@
 import { PageHero } from "@/components/PageHero";
 import { CatalogFilters } from "@/components/CatalogFilters";
 import { CtaSection } from "@/components/CtaSection";
-import { products } from "@/content/products";
+import { getProducts, getSiteSettings } from "@/lib/data";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Helmet Catalog",
@@ -16,6 +18,7 @@ type CatalogPageProps = {
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const params = await searchParams;
+  const [site, products] = await Promise.all([getSiteSettings(), getProducts()]);
 
   return (
     <>
@@ -34,6 +37,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         </div>
       </section>
       <CtaSection
+        site={site}
         title="Need a Custom Price List?"
         subtitle="Tell us your preferred models and order volume — we'll send tailored wholesale pricing."
       />

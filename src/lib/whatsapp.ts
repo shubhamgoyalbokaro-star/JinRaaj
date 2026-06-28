@@ -1,7 +1,7 @@
-import { site } from "@/content/site";
+import { defaultSite } from "@/content/site";
 
-export function whatsappUrl(text?: string): string {
-  const base = `https://wa.me/${site.whatsapp}`;
+export function whatsappUrl(text?: string, phone = defaultSite.whatsapp): string {
+  const base = `https://wa.me/${phone}`;
   if (!text) return base;
   return `${base}?text=${encodeURIComponent(text)}`;
 }

@@ -1,9 +1,13 @@
 import { Package, Shield, Truck, Headphones } from "lucide-react";
-import { site } from "@/content/site";
+import type { SiteSettings } from "@/types/content";
 
 const icons = [Package, Shield, Truck, Headphones];
 
-export function WhyUs() {
+type WhyUsProps = {
+  site: SiteSettings;
+};
+
+export function WhyUs({ site }: WhyUsProps) {
   return (
     <section className="section-padding bg-surface">
       <div className="mx-auto max-w-7xl">

@@ -3,7 +3,12 @@
 import { Send } from "lucide-react";
 import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 
-export function ContactForm() {
+type ContactFormProps = {
+  whatsapp: string;
+  phoneDisplay: string;
+};
+
+export function ContactForm({ whatsapp, phoneDisplay }: ContactFormProps) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -19,7 +24,7 @@ export function ContactForm() {
       message: String(data.get("message") ?? "") || undefined,
     });
 
-    window.location.href = whatsappUrl(message);
+    window.location.href = whatsappUrl(message, whatsapp);
   }
 
   return (
@@ -128,7 +133,7 @@ export function ContactForm() {
       </button>
 
       <p className="text-xs text-muted">
-        Submitting opens WhatsApp with your enquiry pre-filled to +91 93323 75667.
+        Submitting opens WhatsApp with your enquiry pre-filled to {phoneDisplay}.
       </p>
     </form>
   );

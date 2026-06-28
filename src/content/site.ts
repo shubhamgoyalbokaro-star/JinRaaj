@@ -1,4 +1,6 @@
-export const site = {
+import type { SiteSettings } from "@/types/content";
+
+export const defaultSite: SiteSettings = {
   name: "JinRaaj",
   legalName: "JinRaaj Helmet Wholesalers",
   domain: "jinraaj.com",

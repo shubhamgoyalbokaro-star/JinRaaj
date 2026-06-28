@@ -1,14 +1,18 @@
 import { PageHero } from "@/components/PageHero";
 import { CtaSection } from "@/components/CtaSection";
-import { site } from "@/content/site";
+import { getSiteSettings } from "@/lib/data";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "FAQ",
   description: "Frequently asked questions about JinRaaj wholesale helmet pricing, MOQ, delivery, and dealer terms.",
 };
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const site = await getSiteSettings();
+
   return (
     <>
       <PageHero
@@ -34,6 +38,7 @@ export default function FaqPage() {
       </section>
 
       <CtaSection
+        site={site}
         title="Still Have Questions?"
         subtitle="Our team is happy to help with product selection, pricing, and dealer onboarding."
         primaryLabel="Contact Us"

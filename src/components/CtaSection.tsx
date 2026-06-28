@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { site } from "@/content/site";
+import type { SiteSettings } from "@/types/content";
 
 type CtaSectionProps = {
+  site: SiteSettings;
   title?: string;
   subtitle?: string;
   primaryLabel?: string;
@@ -12,6 +13,7 @@ type CtaSectionProps = {
 };
 
 export function CtaSection({
+  site,
   title = "Ready to Stock Premium Helmets?",
   subtitle = "Get wholesale pricing, MOQ details, and pan-India delivery terms — response within 24 hours.",
   primaryLabel = site.ctas.primary,

@@ -1,14 +1,18 @@
 import { PageHero } from "@/components/PageHero";
 import { CtaSection } from "@/components/CtaSection";
-import { site } from "@/content/site";
+import { getSiteSettings } from "@/lib/data";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About Us",
   description: "Learn about JinRaaj — India's trusted helmet wholesaler supplying O2, ASHO, Kaiser, and 3 ACES to dealers nationwide.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const site = await getSiteSettings();
+
   return (
     <>
       <PageHero
@@ -53,6 +57,7 @@ export default function AboutPage() {
       </section>
 
       <CtaSection
+        site={site}
         title="Partner With a Wholesaler You Can Trust"
         subtitle="Join hundreds of dealers across India who rely on JinRaaj for quality helmets and reliable supply."
         secondaryLabel={site.ctas.primary}

@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { CtaSection } from "@/components/CtaSection";
-import { site } from "@/content/site";
+import { getSiteSettings } from "@/lib/data";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Wholesale & Dealer Program",
@@ -10,7 +12,8 @@ export const metadata: Metadata = {
     "Become a JinRaaj dealer — competitive bulk pricing, pan-India delivery, and dedicated support for helmet retailers.",
 };
 
-export default function WholesalePage() {
+export default async function WholesalePage() {
+  const site = await getSiteSettings();
   const { wholesale } = site;
 
   return (
@@ -61,7 +64,7 @@ export default function WholesalePage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-accent">
                   {key.replace(/([A-Z])/g, " $1").trim()}
                 </p>
-                <p className="mt-2 text-sm text-muted">{value}</p>
+                <p className="mt-2 text-sm text-muted">{value as string}</p>
               </div>
             ))}
           </div>
@@ -73,7 +76,7 @@ export default function WholesalePage() {
         </div>
       </section>
 
-      <CtaSection />
+      <CtaSection site={site} />
     </>
   );
 }

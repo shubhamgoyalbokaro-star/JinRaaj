@@ -1,41 +1,11 @@
-export type HelmetType = "modular" | "full-face" | "open-face" | "off-road";
-export type HelmetFinish = "matte" | "glossy" | "graphics" | "painted";
+import type { Product } from "@/types/content";
 
-export type ProductColor = {
-  id: string;
-  label: string;
-  hex: string;
-};
-
-export type Product = {
-  slug: string;
-  name: string;
-  brand: string;
-  type: HelmetType;
-  finish: HelmetFinish[];
-  tagline: string;
-  description: string;
-  image: string;
-  featured?: boolean;
-  badges: string[];
-  colors?: ProductColor[];
-  finishes?: { id: string; label: string }[];
-  specs: { label: string; value: string }[];
-  features: string[];
-  moq: string;
-  skuPrefix: string;
-};
+export type { HelmetType, HelmetFinish, ProductColor, Product } from "@/types/content";
+export { helmetTypes } from "@/types/content";
 
 export const brands = ["O2", "ASHO", "Kaiser", "3 ACES"] as const;
 
-export const helmetTypes: { id: HelmetType; label: string }[] = [
-  { id: "modular", label: "Modular / Flip-Up" },
-  { id: "full-face", label: "Full Face" },
-  { id: "open-face", label: "Open Face / Jet" },
-  { id: "off-road", label: "Off-Road" },
-];
-
-export const products: Product[] = [
+export const defaultProducts: Product[] = [
   {
     slug: "o2-prox-matt-sv",
     name: "O2 PROX MATT S/V",
@@ -329,14 +299,3 @@ export const products: Product[] = [
   },
 ];
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return products.find((p) => p.slug === slug);
-}
-
-export function getFeaturedProducts(): Product[] {
-  return products.filter((p) => p.featured);
-}
-
-export function getProductsByBrand(brand: string): Product[] {
-  return products.filter((p) => p.brand.toLowerCase() === brand.toLowerCase());
-}

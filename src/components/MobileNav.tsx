@@ -3,9 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { site, navLinks } from "@/content/site";
+import type { SiteSettings } from "@/types/content";
+import { navLinks } from "@/content/site";
 
-export function MobileNav() {
+type MobileNavProps = {
+  site: SiteSettings;
+};
+
+export function MobileNav({ site }: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   return (

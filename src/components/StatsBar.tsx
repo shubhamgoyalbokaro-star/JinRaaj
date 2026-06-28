@@ -1,6 +1,10 @@
-import { site } from "@/content/site";
+import type { SiteSettings } from "@/types/content";
 
-export function StatsBar() {
+type StatsBarProps = {
+  site: SiteSettings;
+};
+
+export function StatsBar({ site }: StatsBarProps) {
   return (
     <section className="border-y border-border bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

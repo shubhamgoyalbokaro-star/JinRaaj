@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import type { HelmetType, Product } from "@/content/products";
-import { brands, helmetTypes } from "@/content/products";
+import type { HelmetType, Product } from "@/types/content";
+import { helmetTypes } from "@/types/content";
 import { ProductCard } from "./ProductCard";
 
 type CatalogFiltersProps = {
@@ -17,6 +17,11 @@ export function CatalogFilters({ products, initialBrand, initialType }: CatalogF
   const [brand, setBrand] = useState(initialBrand ?? "all");
   const [type, setType] = useState<HelmetType | "all">(
     (initialType as HelmetType) ?? "all"
+  );
+
+  const brands = useMemo(
+    () => [...new Set(products.map((p) => p.brand))].sort(),
+    [products]
   );
 
   const filtered = useMemo(() => {

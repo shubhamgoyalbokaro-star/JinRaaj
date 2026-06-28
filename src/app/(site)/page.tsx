@@ -7,16 +7,21 @@ import { ProductCard } from "@/components/ProductCard";
 import { BrandShowcase } from "@/components/BrandShowcase";
 import { WhyUs } from "@/components/WhyUs";
 import { CtaSection } from "@/components/CtaSection";
-import { getFeaturedProducts, products } from "@/content/products";
-import { site } from "@/content/site";
+import { getFeaturedProducts, getProducts, getSiteSettings } from "@/lib/data";
 
-export default function HomePage() {
-  const featured = getFeaturedProducts();
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const [site, products, featured] = await Promise.all([
+    getSiteSettings(),
+    getProducts(),
+    getFeaturedProducts(),
+  ]);
 
   return (
     <>
-      <Hero />
-      <StatsBar />
+      <Hero site={site} />
+      <StatsBar site={site} />
 
       <section className="section-padding">
         <div className="mx-auto max-w-7xl">
@@ -40,8 +45,8 @@ export default function HomePage() {
       </section>
 
       <BrandShowcase />
-      <WhyUs />
-      <CtaSection />
+      <WhyUs site={site} />
+      <CtaSection site={site} />
     </>
   );
 }

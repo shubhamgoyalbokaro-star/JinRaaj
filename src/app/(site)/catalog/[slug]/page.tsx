@@ -2,22 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Check, MessageCircle } from "lucide-react";
-import { getProductBySlug, products } from "@/content/products";
+import {
+  getProductBySlug,
+  getProductSlugs,
+  getSiteSettings,
+} from "@/lib/data";
 import { CtaSection } from "@/components/CtaSection";
 import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+  const slugs = await getProductSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) return { title: "Product Not Found" };
   return {
     title: product.name,
@@ -27,11 +34,15 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const [product, site] = await Promise.all([
+    getProductBySlug(slug),
+    getSiteSettings(),
+  ]);
   if (!product) notFound();
 
   const productWhatsappUrl = whatsappUrl(
-    whatsappMessages.product(product.name, product.skuPrefix)
+    whatsappMessages.product(product.name, product.skuPrefix),
+    site.whatsapp
   );
 
   return (
@@ -156,7 +167,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       </section>
 
-      <CtaSection />
+      <CtaSection site={site} />
     </>
   );
 }

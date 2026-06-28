@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Shield } from "lucide-react";
-import { site } from "@/content/site";
+import type { SiteSettings } from "@/types/content";
 
-export function Hero() {
+type HeroProps = {
+  site: SiteSettings;
+};
+
+export function Hero({ site }: HeroProps) {
   return (
     <section className="hero-gradient relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
