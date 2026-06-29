@@ -4,6 +4,7 @@ import { defaultSite } from "@/content/site";
 import { defaultProducts } from "@/content/products";
 import { getImageUrl } from "@/sanity/image";
 import {
+  brandsQuery,
   productBySlugQuery,
   productSlugsQuery,
   productsQuery,
@@ -151,6 +152,20 @@ export const getProductSlugs = cache(async (): Promise<string[]> => {
 });
 
 export async function getBrands(): Promise<string[]> {
+  if (isSanityConfigured()) {
+    try {
+      const client = getSanityClient();
+      if (client) {
+        const brands = await client.fetch<{ name: string }[]>(brandsQuery);
+        if (brands?.length) {
+          return brands.map((b) => b.name).sort();
+        }
+      }
+    } catch {
+      // fall through to product-derived brands
+    }
+  }
+
   const products = await getProducts();
-  return [...new Set(products.map((p) => p.brand))].sort();
+  return [...new Set(products.map((p) => p.brand).filter(Boolean))].sort();
 }

@@ -24,9 +24,14 @@ export default defineConfig({
                 S.document().schemaType("siteSettings").documentId("siteSettings")
               ),
             S.divider(),
-            ...S.documentTypeListItems().filter(
-              (item) => item.getId() !== "siteSettings"
-            ),
+            S.listItem()
+              .title("Brands")
+              .schemaType("brand")
+              .child(S.documentTypeList("brand").title("Brands")),
+            S.listItem()
+              .title("Helmet Products")
+              .schemaType("product")
+              .child(S.documentTypeList("product").title("Helmet Products")),
           ]),
     }),
     visionTool({ defaultApiVersion: apiVersion }),

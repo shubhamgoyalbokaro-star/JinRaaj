@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed:sanity": "tsx scripts/seed-sanity.ts"
+    "seed:sanity": "tsx scripts/seed-sanity.ts",
+    "fix:sanity-keys": "tsx scripts/fix-sanity-keys.ts",
+    "migrate:brands": "tsx scripts/migrate-brands.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",

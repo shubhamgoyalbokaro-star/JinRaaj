@@ -21,15 +21,9 @@ export const productType = defineType({
     defineField({
       name: "brand",
       title: "Brand",
-      type: "string",
-      options: {
-        list: [
-          { title: "O2", value: "O2" },
-          { title: "ASHO", value: "ASHO" },
-          { title: "Kaiser", value: "Kaiser" },
-          { title: "3 ACES", value: "3 ACES" },
-        ],
-      },
+      type: "reference",
+      to: [{ type: "brand" }],
+      description: "Pick an existing brand or click + to create a new one.",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -163,7 +157,7 @@ export const productType = defineType({
   preview: {
     select: {
       title: "name",
-      subtitle: "brand",
+      subtitle: "brand.name",
       media: "image",
     },
   },

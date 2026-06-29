@@ -14,6 +14,8 @@ import fs from "fs";
 import path from "path";
 import { defaultSite } from "../src/content/site";
 import { defaultProducts } from "../src/content/products";
+import { prepareProductForSanity, prepareSiteSettingsForSanity } from "./sanity-keys";
+import { brandDocId, brandSlug } from "./brand-utils";
 
 loadEnv({ path: ".env.local" });
 loadEnv({ path: ".env" });
@@ -62,39 +64,60 @@ async function uploadProductImage(slug: string) {
   return { _type: "image", asset: { _type: "reference", _ref: asset._id } };
 }
 
+async function seedBrands() {
+  const names = [...new Set(defaultProducts.map((p) => p.brand))];
+  const refs: Record<string, { _type: "reference"; _ref: string }> = {};
+
+  for (const name of names) {
+    const id = brandDocId(name);
+    await client.createOrReplace({
+      _id: id,
+      _type: "brand",
+      name,
+      slug: { _type: "slug", current: brandSlug(name) },
+    });
+    refs[name] = { _type: "reference", _ref: id };
+    console.log(`✓ Brand seeded: ${name}`);
+  }
+
+  return refs;
+}
+
 async function seedSiteSettings() {
   await client.createOrReplace({
     _id: "siteSettings",
     _type: "siteSettings",
-    ...defaultSite,
+    ...prepareSiteSettingsForSanity(defaultSite as unknown as Record<string, unknown>),
   });
   console.log("✓ Site settings seeded");
 }
 
-async function seedProducts() {
+async function seedProducts(brandRefs: Record<string, { _type: "reference"; _ref: string }>) {
   for (const product of defaultProducts) {
     const image = await uploadProductImage(product.slug);
 
     await client.createOrReplace({
       _id: `product-${product.slug}`,
       _type: "product",
-      name: product.name,
-      slug: { _type: "slug", current: product.slug },
-      brand: product.brand,
-      type: product.type,
-      finish: product.finish,
-      tagline: product.tagline,
-      description: product.description,
-      image,
-      featured: product.featured ?? false,
-      published: true,
-      badges: product.badges,
-      colors: product.colors,
-      finishOptions: product.finishes,
-      specs: product.specs,
-      features: product.features,
-      moq: product.moq,
-      skuPrefix: product.skuPrefix,
+      ...prepareProductForSanity({
+        name: product.name,
+        slug: { _type: "slug", current: product.slug },
+        brand: brandRefs[product.brand],
+        type: product.type,
+        finish: product.finish,
+        tagline: product.tagline,
+        description: product.description,
+        image,
+        featured: product.featured ?? false,
+        published: true,
+        badges: product.badges,
+        colors: product.colors,
+        finishOptions: product.finishes,
+        specs: product.specs,
+        features: product.features,
+        moq: product.moq,
+        skuPrefix: product.skuPrefix,
+      }),
     });
 
     console.log(`✓ Product seeded: ${product.name}`);
@@ -104,7 +127,8 @@ async function seedProducts() {
 async function main() {
   console.log(`Seeding Sanity project ${projectId} (${dataset})...`);
   await seedSiteSettings();
-  await seedProducts();
+  const brandRefs = await seedBrands();
+  await seedProducts(brandRefs);
   console.log("\nDone! Open /studio on your site to manage content.");
 }
 

@@ -1,30 +1,12 @@
 export const siteSettingsQuery = `*[_type == "siteSettings" && _id == "siteSettings"][0]`;
 
-export const productsQuery = `*[_type == "product" && published != false] | order(name asc) {
-  _id,
-  name,
-  "slug": slug.current,
-  brand,
-  type,
-  finish,
-  tagline,
-  description,
-  image,
-  featured,
-  badges,
-  colors,
-  finishOptions,
-  specs,
-  features,
-  moq,
-  skuPrefix
-}`;
+export const brandsQuery = `*[_type == "brand"] | order(name asc) { name }`;
 
-export const productBySlugQuery = `*[_type == "product" && slug.current == $slug && published != false][0] {
+const productFields = `
   _id,
   name,
   "slug": slug.current,
-  brand,
+  "brand": coalesce(brand->name, brand),
   type,
   finish,
   tagline,
@@ -38,6 +20,10 @@ export const productBySlugQuery = `*[_type == "product" && slug.current == $slug
   features,
   moq,
   skuPrefix
-}`;
+`;
+
+export const productsQuery = `*[_type == "product" && published != false] | order(name asc) { ${productFields} }`;
+
+export const productBySlugQuery = `*[_type == "product" && slug.current == $slug && published != false][0] { ${productFields} }`;
 
 export const productSlugsQuery = `*[_type == "product" && published != false].slug.current`;
