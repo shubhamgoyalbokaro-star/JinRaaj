@@ -1,5 +1,6 @@
 "use client";
 
+import "@/lib/studio-polyfills";
 import { NextStudio } from "next-sanity/studio";
 import config from "../../../../sanity.config";
 
