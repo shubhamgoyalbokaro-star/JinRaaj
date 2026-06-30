@@ -10,8 +10,10 @@ import {
 import { CtaSection } from "@/components/CtaSection";
 import { whatsappMessages, whatsappUrl } from "@/lib/whatsapp";
 import type { Metadata } from "next";
+import { decodeProductSlug } from "@/lib/slug";
 
 export const revalidate = 60;
+export const dynamicParams = true;
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -23,7 +25,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeProductSlug(rawSlug);
   const product = await getProductBySlug(slug);
   if (!product) return { title: "Product Not Found" };
   return {
@@ -33,7 +36,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeProductSlug(rawSlug);
   const [product, site] = await Promise.all([
     getProductBySlug(slug),
     getSiteSettings(),

@@ -15,8 +15,18 @@ export const productType = defineType({
       name: "slug",
       title: "URL Slug",
       type: "slug",
+      description:
+        "Click Generate — use lowercase and hyphens only (e.g. steelbird-sba-15-flip-dv). No spaces or / characters.",
       options: { source: "name", maxLength: 96 },
-      validation: (rule) => rule.required(),
+      validation: (rule) =>
+        rule.required().custom((slug) => {
+          const current = slug?.current;
+          if (!current) return true;
+          if (/[\s/\\]/.test(current)) {
+            return "Regenerate slug — no spaces or slashes. Example: steelbird-sba-15-flip-dv";
+          }
+          return true;
+        }),
     }),
     defineField({
       name: "brand",

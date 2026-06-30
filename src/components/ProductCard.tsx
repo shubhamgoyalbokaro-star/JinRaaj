@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Product } from "@/types/content";
+import { encodeProductSlug } from "@/lib/slug";
 
 type ProductCardProps = {
   product: Product;
@@ -9,7 +10,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <Link href={`/catalog/${product.slug}`} className="group card-surface flex flex-col overflow-hidden">
+    <Link href={`/catalog/${encodeProductSlug(product.slug)}`} className="group card-surface flex flex-col overflow-hidden">
       <div className="relative aspect-square overflow-hidden bg-surface">
         <Image
           src={product.image}
